@@ -51,11 +51,11 @@ public abstract class LivingEntityMixin extends Entity {
 		// no-op on server
 		if (!level().isClientSide()) return Math.max(currentYSpeed, vanillaDownSpeed);
 
-		// From looking 20 degrees down to 90 degrees down, scale downwards speed from vanilla speed (-0.15) to -0.4
-		double maxDownSpeed = Mth.clampedMap(getXRot(), 20, 90, vanillaDownSpeed, -0.4);
+		// From looking 20 degrees down to 90 degrees down, scale downwards speed from vanilla speed (-0.15) to -0.27
+		double maxDownSpeed = Mth.clampedMap(getXRot(), 20, 90, vanillaDownSpeed, -0.27);
 		if (maxDownSpeed < -0.15) {
-			// Increase down speed to 1.5x over 3 seconds
-			maxDownSpeed = Mth.clampedMap(climbDownTicks, 0, 60, maxDownSpeed, maxDownSpeed * 1.5);
+			// Increase down speed to 1.25x over 2 seconds
+			maxDownSpeed = Mth.clampedMap(climbDownTicks, 0, 40, maxDownSpeed, maxDownSpeed * 1.25);
 		}
 		return Math.max(currentYSpeed, maxDownSpeed);
 	}
@@ -92,9 +92,9 @@ public abstract class LivingEntityMixin extends Entity {
 
 		climbingUpThisTick = true;
 		// Vanilla speed is 0.20
-		double increasedVanillaClimbSpeed = vanillaClimbSpeed * 1.25;
-		// Increase climb speed to 2x over 3 seconds
-		double climbYSpeed = Mth.clampedMap(climbUpTicks, 0, 60, increasedVanillaClimbSpeed, increasedVanillaClimbSpeed * 2);
+		double increasedVanillaClimbSpeed = vanillaClimbSpeed * 1.1;
+		// Increase climb speed to 1.2x over 3 seconds
+		double climbYSpeed = Mth.clampedMap(climbUpTicks, 0, 60, increasedVanillaClimbSpeed, increasedVanillaClimbSpeed * 1.2);
 		return Math.max(this.getDeltaMovement().y, climbYSpeed);
 	}
 
